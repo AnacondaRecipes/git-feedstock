@@ -23,6 +23,7 @@ mkdir -p $PREFIX/etc
 make configure
 ./configure \
     --prefix="${PREFIX}" \
+    --host=${HOST} \
     --with-gitattributes="${PREFIX}/etc/gitattributes" \
     --with-gitconfig="${PREFIX}/etc/gitconfig" \
     --with-iconv="${PREFIX}/lib"

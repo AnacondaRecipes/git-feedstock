@@ -19,17 +19,19 @@ build:
   number: 0
   skip: true  # [win and not py27]
   # git hardcodes paths to external utilities (e.g. curl)
-  detect_binary_files_with_prefix: true
+  detect_binary_files_with_prefix: True
 
 requirements:
   build:
     - autoconf        # [unix]
+  host:
     - curl            # [unix]
     - expat           # [unix]
     - libiconv        # [unix]
     - openssl 1.0.*   # [unix]
     - zlib 1.2.*      # [unix]
     - 7za             # [win]
+    - {{ compiler('c') }}
 
     # Workaround for conda-build issue.
     - python          # [win]
