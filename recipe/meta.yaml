@@ -31,6 +31,8 @@ requirements:
     - openssl 1.0.*   # [unix]
     - zlib 1.2.*      # [unix]
     - 7za             # [win]
+    - perl 5.*        # [unix]
+    - tk 8.*          # [unix]
     - {{ compiler('c') }}
 
     # Workaround for conda-build issue.
@@ -41,6 +43,8 @@ requirements:
     - libiconv        # [unix]
     - openssl 1.0.*   # [unix]
     - zlib 1.2.*      # [unix]
+    - perl 5.*        # [unix]
+    - tk 8.*          # [unix]
 
 test:
   commands:
