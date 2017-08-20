@@ -27,7 +27,7 @@ requirements:
   host:
     - curl            # [unix]
     - expat           # [unix]
-    - libiconv        # [unix]
+    - libiconv        # [not linux and not win]
     - openssl 1.0.*   # [unix]
     - zlib 1.2.*      # [unix]
     - 7za             # [win]
@@ -40,7 +40,7 @@ requirements:
   run:
     - curl            # [unix]
     - expat           # [unix]
-    - libiconv        # [unix]
+    - libiconv        # [not linux and not win]
     - openssl 1.0.*   # [unix]
     - zlib 1.2.*      # [unix]
     - perl 5.*        # [unix]
