@@ -23,17 +23,17 @@ build:
 
 requirements:
   build:
+    - {{ compiler('c') }}
     - autoconf        # [unix]
   host:
     - curl            # [unix]
     - expat           # [unix]
     - libiconv        # [not linux and not win]
     - openssl 1.0.*   # [unix]
-    - zlib 1.2.*      # [unix]
+    - zlib            # [unix]
     - 7za             # [win]
     - perl 5.*        # [unix]
     - tk 8.*          # [unix]
-    - {{ compiler('c') }}
 
     # Workaround for conda-build issue.
     - python          # [win]
@@ -42,7 +42,6 @@ requirements:
     - expat           # [unix]
     - libiconv        # [not linux and not win]
     - openssl 1.0.*   # [unix]
-    - zlib 1.2.*      # [unix]
     - perl 5.*        # [unix]
     - tk 8.*          # [unix]
 
