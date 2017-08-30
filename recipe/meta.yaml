@@ -59,6 +59,13 @@ about:
   home: https://git-scm.com/
   license: GPL v2 and LGPL 2.1
   summary: distributed version control system
+  
+  description: |
+    Git is a free and open source distributed version control system designed
+    to handle everything from small to very large projects with speed and
+    efficiency.
+  doc_url: https://git-scm.com/doc
+  dev_url: https://github.com/git/git
 
 extra:
   recipe-maintainers:
