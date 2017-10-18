@@ -19,26 +19,29 @@ build:
   number: 0
   skip: true  # [win and not py27]
   # git hardcodes paths to external utilities (e.g. curl)
-  detect_binary_files_with_prefix: true
+  detect_binary_files_with_prefix: True
 
 requirements:
   build:
+    - {{ compiler('c') }}
     - autoconf        # [unix]
-    - curl >=7.44.0,<8  # [unix]
+  host:
+    - curl            # [unix]
     - expat           # [unix]
-    - libiconv        # [unix]
+    - libiconv        # [not linux and not win]
     - openssl 1.0.*   # [unix]
-    - zlib 1.2.8      # [unix]
+    - zlib            # [unix]
     - 7za             # [win]
+    - perl 5.*        # [unix]
+    - tk 8.*          # [unix]
 
     # Workaround for conda-build issue.
     - python          # [win]
   run:
-    - curl >=7.44.0,<8  # [unix]
+    - curl            # [unix]
     - expat           # [unix]
-    - libiconv        # [unix]
-    - openssl 1.0.*   # [unix]
-    - zlib 1.2.8      # [unix]
+    - libiconv        # [not linux and not win]
+    - perl 5.*        # [unix]
 
 test:
   commands:
@@ -57,10 +60,17 @@ about:
   home: https://git-scm.com/
   license: GPL v2 and LGPL 2.1
   summary: distributed version control system
+  description: |
+    Git is a free and open source distributed version control system designed
+    to handle everything from small to very large projects with speed and
+    efficiency.
+  doc_url: https://git-scm.com/doc
+  dev_url: https://github.com/git/git
 
 extra:
   recipe-maintainers:
     - jakirkham
+    - mingwandroid
     - msarahan
     - pelson
     - scopatz
