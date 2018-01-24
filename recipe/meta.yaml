@@ -1,16 +1,17 @@
-{% set version = "2.15.0" %}
+{% set version = "2.16.1" %}
+{% set extra_win_ver='' %}
 
 package:
   name: git
   version: {{ version }}
 
 source:
-  url: https://github.com/git/git/archive/v{{ version }}.tar.gz                                                                   # [unix]
-  sha256: 6b33b2b0e962338ac759a5102dfb777f280279b40ba0bde5dde0591b35520f2b     # [unix]
-  url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.1/MinGit-{{ version }}-busybox-32-bit.zip  # [win32]
-  sha256: dcaea2b1721df5da464fe4b52fd6b3fbf1f60cf38320dee122fc0355161f7949                                                        # [win32]
-  url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.1/MinGit-{{ version }}-busybox-64-bit.zip  # [win64]
-  sha256: 300fda25b364ba692bae66406fcfc1a9700f9823693167fe29f809bf350c4803                                                        # [win64]
+  url: https://www.kernel.org/pub/software/scm/git/git-{{ version }}.tar.xz                # [unix]
+  sha256: cfad4337f2fdbfc1e2c8abce5e17e1dd4e1718a34ac2cbe3238fbe2426f2ea19     # [unix]
+  url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.1/MinGit-{{ version }}{{ extra_win_ver }}-busybox-32-bit.zip  # [win32]
+  sha256: 158eac07dbd90555afcfb73709a33feffa070db5ae3ff6602bf400d26f326d37     # [win32]
+  url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.1/MinGit-{{ version }}{{ extra_win_ver }}-busybox-64-bit.zip  # [win64]
+  sha256: 21ac64a8876f96af8375b4ab655e669be99c341c1fe5c762485d720886f31b48     # [win64]
 
 build:
   number: 0
@@ -21,18 +22,15 @@ requirements:
   build:
     - {{ compiler('c') }}  # [unix]
     - autoconf        # [unix]
-  host:
-    - curl            # [unix]
-    - expat           # [unix]
-    - libiconv        # [not linux and not win]
-    - openssl 1.0.*   # [unix]
-    - zlib            # [unix]
     - perl 5.*        # [unix]
-    - tk 8.*          # [unix]
-  run:
-    - curl            # [unix]
+  host:
+    - libcurl         # [unix]
     - expat           # [unix]
     - libiconv        # [not linux and not win]
+    - openssl         # [unix]
+    - tk              # [unix]
+    - zlib            # [unix]
+  run:
     - perl 5.*        # [unix]
 
 test:

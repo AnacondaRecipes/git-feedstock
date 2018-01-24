@@ -22,7 +22,7 @@ make configure
     --with-gitattributes="${PREFIX}/etc/gitattributes" \
     --with-gitconfig="${PREFIX}/etc/gitconfig" \
     --with-iconv="${PREFIX}/lib" \
-    --with-perl="${PREFIX}/bin/perl" \
+    --with-perl="${BUILD_PREFIX}/bin/perl" \
     --with-tcltk="${PREFIX}/bin/tclsh"
 make \
     --jobs=${CPU_COUNT} \
