@@ -14,7 +14,7 @@ source:
   sha256: 21ac64a8876f96af8375b4ab655e669be99c341c1fe5c762485d720886f31b48     # [win64]
 
 build:
-  number: 0
+  number: 1
   # git hardcodes paths to external utilities (e.g. curl)
   detect_binary_files_with_prefix: True
 
@@ -22,8 +22,8 @@ requirements:
   build:
     - {{ compiler('c') }}  # [unix]
     - autoconf        # [unix]
-    - perl 5.*        # [unix]
   host:
+    - perl 5.*        # [unix]
     - libcurl         # [unix]
     - expat           # [unix]
     - libiconv        # [not linux and not win]
@@ -42,6 +42,15 @@ test:
     # Run git commands.
     - git --version
     - git clone https://github.com/conda-forge/git-feedstock
+
+    # Test that git interactive works
+    - pushd $(mktemp -d 2>/dev/null || mktemp -d -t 'tmp')  # [unix]
+    - git init .                   # [unix]
+    - echo hello > world           # [unix]
+    - git add world                # [unix]
+    - echo goodbye >> world        # [unix]
+    - echo y | git add -p world    # [unix]
+    - popd                         # [unix]
 
     # test completions
     - bash $PREFIX/share/bash-completion/completions/git  # [unix]
