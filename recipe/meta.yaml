@@ -1,4 +1,4 @@
-{% set version = "2.16.1" %}
+{% set version = "2.17.0" %}
 {% set extra_win_ver='' %}
 
 package:
@@ -7,14 +7,14 @@ package:
 
 source:
   url: https://www.kernel.org/pub/software/scm/git/git-{{ version }}.tar.xz                # [unix]
-  sha256: cfad4337f2fdbfc1e2c8abce5e17e1dd4e1718a34ac2cbe3238fbe2426f2ea19     # [unix]
+  sha256: e916e5e95e81dbeafa7aac5d719c01108b5c814eb90b746695afa1afedf955c7     # [unix]
   url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.1/MinGit-{{ version }}{{ extra_win_ver }}-busybox-32-bit.zip  # [win32]
-  sha256: 158eac07dbd90555afcfb73709a33feffa070db5ae3ff6602bf400d26f326d37     # [win32]
+  sha256: 3ded3fc7245fd026cab3ef05e9cc867c138e3e858aea42f68369a0e0aad1067f     # [win32]
   url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.1/MinGit-{{ version }}{{ extra_win_ver }}-busybox-64-bit.zip  # [win64]
-  sha256: 21ac64a8876f96af8375b4ab655e669be99c341c1fe5c762485d720886f31b48     # [win64]
+  sha256: 6f4599f367f784087e96f5c7689b2807718d7f75296e2beb4280a0fc2fdfdc1c     # [win64]
 
 build:
-  number: 1
+  number: 0
   # git hardcodes paths to external utilities (e.g. curl)
   detect_binary_files_with_prefix: True
 
