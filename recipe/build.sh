@@ -28,7 +28,8 @@ make \
     --jobs=${CPU_COUNT} \
     NO_GETTEXT=1 \
     NO_INSTALL_HARDLINKS=1 \
-    all strip install
+    all strip install \
+    ${VERBOSE_AT}
 
 git config --system http.sslVerify true
 git config --system http.sslCAPath "${PREFIX}/ssl/cacert.pem"

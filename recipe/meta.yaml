@@ -12,6 +12,8 @@ source:
   sha256: 3ded3fc7245fd026cab3ef05e9cc867c138e3e858aea42f68369a0e0aad1067f     # [win32]
   url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.1/MinGit-{{ version }}{{ extra_win_ver }}-busybox-64-bit.zip  # [win64]
   sha256: 6f4599f367f784087e96f5c7689b2807718d7f75296e2beb4280a0fc2fdfdc1c     # [win64]
+  patches:
+    - 0001-macOS-Do-not-use-the-system-Wish-urgh.patch
 
 build:
   number: 0
