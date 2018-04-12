@@ -6,17 +6,21 @@ package:
   version: {{ version }}
 
 source:
-  url: https://www.kernel.org/pub/software/scm/git/git-{{ version }}.tar.xz                # [unix]
-  sha256: e916e5e95e81dbeafa7aac5d719c01108b5c814eb90b746695afa1afedf955c7     # [unix]
-  url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.1/MinGit-{{ version }}{{ extra_win_ver }}-busybox-32-bit.zip  # [win32]
-  sha256: 3ded3fc7245fd026cab3ef05e9cc867c138e3e858aea42f68369a0e0aad1067f     # [win32]
-  url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.1/MinGit-{{ version }}{{ extra_win_ver }}-busybox-64-bit.zip  # [win64]
-  sha256: 6f4599f367f784087e96f5c7689b2807718d7f75296e2beb4280a0fc2fdfdc1c     # [win64]
-  patches:
-    - 0001-macOS-Do-not-use-the-system-Wish-urgh.patch
+  - url: https://www.kernel.org/pub/software/scm/git/git-{{ version }}.tar.xz    # [unix]
+    sha256: e916e5e95e81dbeafa7aac5d719c01108b5c814eb90b746695afa1afedf955c7     # [unix]
+    patches:                                                                     # [unix]
+      - 0001-macOS-Do-not-use-the-system-Wish-urgh.patch                         # [unix]
+  - url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.1/MinGit-{{ version }}{{ extra_win_ver }}-busybox-32-bit.zip  # [win32]
+    sha256: 3ded3fc7245fd026cab3ef05e9cc867c138e3e858aea42f68369a0e0aad1067f     # [win32]
+  - url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.1/MinGit-{{ version }}{{ extra_win_ver }}-busybox-64-bit.zip  # [win64]
+    sha256: 6f4599f367f784087e96f5c7689b2807718d7f75296e2beb4280a0fc2fdfdc1c     # [win64]
+  - url: https://frippery.org/files/busybox/busybox-w32-FRP-2121-ga316078ad.exe  # [win32]
+    fn: busybox.exe                                                              # [win32]
+  - url: https://frippery.org/files/busybox/busybox64.exe                        # [win64]
+    fn: busybox.exe                                                              # [win64]
 
 build:
-  number: 0
+  number: 1
   # git hardcodes paths to external utilities (e.g. curl)
   detect_binary_files_with_prefix: True
 
@@ -44,6 +48,9 @@ test:
     # Run git commands.
     - git --version
     - git clone https://github.com/conda-forge/git-feedstock
+    - pushd git-feedstock
+    - git submodule update --init
+    - popd
 
     # Test that git interactive works
     - pushd $(mktemp -d 2>/dev/null || mktemp -d -t 'tmp')  # [unix]
