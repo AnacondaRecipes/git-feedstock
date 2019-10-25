@@ -44,7 +44,12 @@ test:
   commands:
     # Verify git location.
     - test -f $PREFIX/bin/git                               # [unix]
+    - test -f $PREFIX/bin/gitk                              # [unix]
+    - test -f $PREFIX/bin/git-credential-osxkeychain        # [osx]
     - if not exist %LIBRARY_PREFIX%\\bin\\git.exe exit 1    # [win]
+
+    # Verify interactive support.
+    - test -f $PREFIX/libexec/git-core/git-add--interactive  # [unix]
 
     # Run git commands.
     - git --version
@@ -52,6 +57,9 @@ test:
     - pushd git-feedstock
     - git submodule update --init
     - popd
+
+    # Git credential commands
+    - git-credential-osxkeychain 2>&1 | grep -q usage  # [osx]
 
     # Test that git interactive works
     - pushd $(mktemp -d 2>/dev/null || mktemp -d -t 'tmp')  # [unix]
