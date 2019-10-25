@@ -27,18 +27,19 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}  # [unix]
-    - autoconf        # [unix]
-    - make            # [unix]
+    - autoconf  # [unix]
+    - make      # [unix]
   host:
-    - perl 5.*        # [unix]
-    - libcurl         # [unix]
-    - expat           # [unix]
-    - libiconv        # [not linux and not win]
-    - openssl         # [unix]
-    - tk              # [unix]
-    - zlib            # [unix]
+    - libcurl   # [unix]
+    - expat     # [unix]
+    - libiconv  # [not linux and not win]
+    - openssl   # [unix]
+    - pcre      # [unix]
+    - perl 5.*  # [unix]
+    - tk        # [unix]
+    - zlib      # [unix]
   run:
-    - perl 5.*        # [unix]
+    - perl 5.*  # [unix]
 
 test:
   commands:
