@@ -1,4 +1,4 @@
-{% set version = "2.20.1" %}
+{% set version = "2.23.0" %}
 {% set extra_win_ver='1' %}
 
 package:
@@ -7,13 +7,13 @@ package:
 
 source:
   - url: https://www.kernel.org/pub/software/scm/git/git-{{ version }}.tar.xz    # [unix]
-    sha256: 9d2e91e2faa2ea61ba0a70201d023b36f54d846314591a002c610ea2ab81c3e9     # [unix]
+    sha256: 234fa05b6839e92dc300b2dd78c92ec9c0c8d439f65e1d430a7034f60af16067     # [unix]
     patches:                                                                     # [unix]
       - 0001-macOS-Do-not-use-the-system-Wish-urgh.patch                         # [unix]
   - url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.{{ extra_win_ver }}/MinGit-{{ version }}-busybox-32-bit.zip  # [win32]
-    sha256: da0c03e3b6e77004efafd7c244dc62e92b4f78642d83234b0c62367c6ab2ad95     # [win32]
+    sha256: 517a23df6ef828f3059e43bde95e772bca6bda44b51169e7c5e9fd1f0ed20427     # [win32]
   - url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.{{ extra_win_ver }}/MinGit-{{ version }}-busybox-64-bit.zip  # [win64]
-    sha256: 9817ab455d9cbd0b09d8664b4afbe4bbf78d18b556b3541d09238501a749486c     # [win64]
+    sha256: 8efcf9d493b3172dfbac885e532e1fc20569c5111a02aa8d7397f2b5e8a28ada     # [win64]
   - url: https://frippery.org/files/busybox/busybox-w32-FRP-2187-g28ade29e9.exe  # [win32]
     fn: busybox.exe                                                              # [win32]
   - url: https://frippery.org/files/busybox/busybox64.exe                        # [win64]
