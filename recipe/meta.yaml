@@ -36,7 +36,6 @@ requirements:
     - openssl   # [unix]
     - pcre      # [unix]
     - perl 5.*  # [unix]
-    - tk        # [unix]
     - zlib      # [unix]
   run:
     - perl 5.*  # [unix]
