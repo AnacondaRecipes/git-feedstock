@@ -20,7 +20,16 @@ source:
     fn: busybox.exe                                                              # [win64]
 
 build:
+{% if bootstrapping == 'yes' %}
+  # Please increment by two
   number: 0
+  string: h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}_bootstrapping
+{% else %}
+  # Keep above the number of the _bootstrapping package
+  number: 1
+{% endif %}
+  script_env:
+    - BOOTSTRAPPING={{ bootstrapping }}
   # git hardcodes paths to external utilities (e.g. curl)
   detect_binary_files_with_prefix: True
 
@@ -36,7 +45,9 @@ requirements:
     - openssl   # [unix]
     - pcre      # [unix]
     - perl 5.*  # [unix]
+{% if bootstrapping != 'yes' %}
     - tk        # [unix]
+{% endif %}
     - zlib      # [unix]
   run:
     - perl 5.*  # [unix]
@@ -45,7 +56,9 @@ test:
   commands:
     # Verify git location.
     - test -f $PREFIX/bin/git                               # [unix]
+{% if bootstrapping != 'yes' %}
     - test -f $PREFIX/bin/gitk                              # [unix]
+{% endif %}
     - test -f $PREFIX/bin/git-credential-osxkeychain        # [osx]
     - if not exist %LIBRARY_PREFIX%\\bin\\git.exe exit 1    # [win]
 
