@@ -40,7 +40,11 @@ requirements:
     - make      # [unix]
   host:
     - libcurl   # [unix]
-    - expat     # [unix]
+{% if bootstrapping == 'yes' %}
+    - expat ==2.3     # [unix]
+{% else %}
+    - expat  # [unix]
+{% endif %}
     - libiconv  # [not linux and not win]
     - openssl   # [unix]
     - pcre      # [unix]
