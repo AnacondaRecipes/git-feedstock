@@ -23,6 +23,10 @@ build:
   number: 0
   # git hardcodes paths to external utilities (e.g. curl)
   detect_binary_files_with_prefix: True
+  # 5/20/2021: run-exports library package pkgs/main::tk-8.6.10-hbc83047_0 and pcre-8.44-he6710b0_0 in requirements/run but it is not used 
+  ignore_run_exports:
+    - pcre
+    - tk
 
 requirements:
   build:
