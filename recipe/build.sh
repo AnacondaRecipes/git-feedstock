@@ -14,7 +14,7 @@ make configure
     --host=${HOST} \
     --with-gitattributes="${PREFIX}/etc/gitattributes" \
     --with-gitconfig="${PREFIX}/etc/gitconfig" \
-    --with-libpcre1 \
+    --with-libpcre2 \
     --with-iconv="${PREFIX}/lib" \
     --with-perl="${PREFIX}/bin/perl" \
     --with-tcltk="${PREFIX}/bin/tclsh"
