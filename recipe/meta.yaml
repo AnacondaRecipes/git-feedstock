@@ -14,7 +14,7 @@ source:
     sha256: d3156def84d48bfacc6242f5386c3c7addc4d2752da078cab2da709f8820c9fc     # [win32]
   - url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.{{ extra_win_ver }}/MinGit-{{ version }}-busybox-64-bit.zip  # [win64]
     sha256: d97a2f116692e78266fbf10976183d57a4193868df1a94de7d40d371e358b6f3     # [win64]
-  - url: https://frippery.org/files/busybox/busybox-w32-FRP-2187-g28ade29e9.exe  # [win32]
+  - url: https://frippery.org/files/busybox/busybox-w32-FRP-3902-g61e53aa93.exe  # [win32]
     fn: busybox.exe                                                              # [win32]
   - url: https://frippery.org/files/busybox/busybox64.exe                        # [win64]
     fn: busybox.exe                                                              # [win64]
