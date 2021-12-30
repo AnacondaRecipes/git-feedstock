@@ -10,6 +10,10 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 && "$target_platform" == "osx-arm64"
   export ac_cv_snprintf_returns_bogus=no
 fi
 
+if [[ ${target_platform} =~ osx-.* ]]; then
+  export NO_APPLE_COMMON_CRYPTO=1
+fi
+
 pushd code
 
 # Add a place for git config files.
