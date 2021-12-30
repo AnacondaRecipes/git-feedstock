@@ -20,11 +20,17 @@ source:
   - url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.1/PortableGit-{{ version }}-64-bit.7z.exe  # [win64]
     folder: .  # [win64]
     sha256: cc561200eb89fdb19c75f901aea2740ffa57a627a31c1a6ef86a8d37e3186275  # [win64]
+  - url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.1/PortableGit-{{ version }}-32-bit.7z.exe  # [win32]
+    folder: .  # [win32]
+    sha256: 29495a17a58ee5fb0345a18d25bf410bd2d1ead86896ba9d2eecf0b690d78f0a  # [win32]
+
 
 build:
   number: 1
   # git hardcodes paths to external utilities (e.g. curl)
   detect_binary_files_with_prefix: true
+  missing_dso_whitelist:    # [win]
+    - '*'                   # [win]
 
 requirements:
   build:
