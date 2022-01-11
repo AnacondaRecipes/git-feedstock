@@ -1,4 +1,4 @@
-{% set version = "2.32.0" %}
+{% set version = "2.34.1" %}
 
 package:
   name: git
@@ -7,26 +7,26 @@ package:
 source:
   - url: https://mirrors.edge.kernel.org/pub/software/scm/git/git-{{ version }}.tar.gz  # [not win]
     folder: code  # [not win]
-    sha256: 6038f06d396ba9dab2eee541c7db6e7f9f847f181ec62f3d8441893f8c469398  # [not win]
+    sha256: fc4eb5ecb9299db91cdd156c06cdeb41833f53adc5631ddf8c0cb13eaa2911c1  # [not win]
     patches:   # [not win]
       - 0001-macOS-Do-not-use-the-system-Wish-urgh.patch  # [not win]
   - url: https://mirrors.edge.kernel.org/pub/software/scm/git/git-manpages-{{ version }}.tar.gz  # [not win]
     folder: manpages  # [not win]
-    sha256: b5533c40ea1688231c0e2df51cc0d1c0272e17fe78a45ba6e60cb8f61fa4a53c  # [not win]
+    sha256: 220f1ed68582caeddf79c4db15e4eaa4808ec01fd11889e19232f0a74d7f31b0  # [not win]
   - url: https://mirrors.edge.kernel.org/pub/software/scm/git/git-htmldocs-{{ version }}.tar.gz  # [not win]
     folder: htmldocs  # [not win]
-    sha256: e38c525084355612cad6358e64361a0eaae5901f91460074f8f913dea702ee4c  # [not win]
+    sha256: 58e8a0d089d1e18aab9d671da77f83d1cbd9ce7e358b3f75fac7fae8922a71bc  # [not win]
 
   - url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.1/PortableGit-{{ version }}-64-bit.7z.exe  # [win64]
     folder: .  # [win64]
-    sha256: cc561200eb89fdb19c75f901aea2740ffa57a627a31c1a6ef86a8d37e3186275  # [win64]
+    sha256: dbf63703f7a37a374591450f1b1466b83ceccb724067521786bf8c5f69ed3ced  # [win64]
   - url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.1/PortableGit-{{ version }}-32-bit.7z.exe  # [win32]
     folder: .  # [win32]
-    sha256: 29495a17a58ee5fb0345a18d25bf410bd2d1ead86896ba9d2eecf0b690d78f0a  # [win32]
+    sha256: 95e198aaf6e6455910facfc522f7981934822fb362f6605375751b8a9c62db55  # [win32]
 
 
 build:
-  number: 1
+  number: 0
   # git hardcodes paths to external utilities (e.g. curl)
   detect_binary_files_with_prefix: true
   missing_dso_whitelist:    # [win]
