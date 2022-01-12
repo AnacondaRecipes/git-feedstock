@@ -95,6 +95,8 @@ about:
   license: GPL-2.0-or-later and LGPL-2.1-or-later
   license_file: code/COPYING  # [not win]
   summary: distributed version control system
+  dev_url: https://github.com/git/git
+  doc_url: https://git-scm.com/docs
 
 extra:
   recipe-maintainers:
