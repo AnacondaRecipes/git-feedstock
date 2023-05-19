@@ -20,9 +20,6 @@ source:
   - url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.1/PortableGit-{{ version }}-64-bit.7z.exe  # [win64]
     folder: .  # [win64]
     sha256: 9e1d819aef3284420adf6d923b0d4865254bd403641d915975e49ddea1e7cdf9  # [win64]
-  - url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.1/PortableGit-{{ version }}-32-bit.7z.exe  # [win32]
-    folder: .  # [win32]
-    sha256: e1360e94cb292862fb023018578a1029022a09278b160f7264c6dc444f65c9ca  # [win32]
 
 
 build:
