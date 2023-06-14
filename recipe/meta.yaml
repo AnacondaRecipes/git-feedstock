@@ -1,4 +1,4 @@
-{% set version = "2.34.1" %}
+{% set version = "2.40.1" %}
 
 package:
   name: git
@@ -7,22 +7,19 @@ package:
 source:
   - url: https://mirrors.edge.kernel.org/pub/software/scm/git/git-{{ version }}.tar.gz  # [not win]
     folder: code  # [not win]
-    sha256: fc4eb5ecb9299db91cdd156c06cdeb41833f53adc5631ddf8c0cb13eaa2911c1  # [not win]
+    sha256: 55511f10f3b1cdf5db4e0e3dea61819dfb67661b0507a5a2b061c70e4f87e14c  # [not win]
     patches:   # [not win]
       - 0001-macOS-Do-not-use-the-system-Wish-urgh.patch  # [not win]
   - url: https://mirrors.edge.kernel.org/pub/software/scm/git/git-manpages-{{ version }}.tar.gz  # [not win]
     folder: manpages  # [not win]
-    sha256: 220f1ed68582caeddf79c4db15e4eaa4808ec01fd11889e19232f0a74d7f31b0  # [not win]
+    sha256: 6bbde434121bd0bf8aa574c60fd9a162388383679bd5ddd99921505149ffd4c2  # [not win]
   - url: https://mirrors.edge.kernel.org/pub/software/scm/git/git-htmldocs-{{ version }}.tar.gz  # [not win]
     folder: htmldocs  # [not win]
-    sha256: 58e8a0d089d1e18aab9d671da77f83d1cbd9ce7e358b3f75fac7fae8922a71bc  # [not win]
+    sha256: 4fcce89aa84c79be6641fee54cf05c590c7d967734536770bf6299cae26c8a51  # [not win]
 
   - url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.1/PortableGit-{{ version }}-64-bit.7z.exe  # [win64]
     folder: .  # [win64]
-    sha256: dbf63703f7a37a374591450f1b1466b83ceccb724067521786bf8c5f69ed3ced  # [win64]
-  - url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.1/PortableGit-{{ version }}-32-bit.7z.exe  # [win32]
-    folder: .  # [win32]
-    sha256: 95e198aaf6e6455910facfc522f7981934822fb362f6605375751b8a9c62db55  # [win32]
+    sha256: 9e1d819aef3284420adf6d923b0d4865254bd403641d915975e49ddea1e7cdf9  # [win64]
 
 
 build:
@@ -42,21 +39,21 @@ requirements:
     - gettext   # [unix]
     - patch     # [unix]
   host:
-    - curl      # [unix]
-    - libcurl   # [unix]
-    - expat     # [unix]
-    - libiconv  # [osx]
-    - openssl   # [unix]
-    - pcre2     # [unix]
+    - curl 7.88.1  # [unix]
+    - libcurl 7.88.1  # [unix]
+    - expat 2.4.9  # [unix]
+    - libiconv 1.16  # [osx]
+    - openssl 3.0.8  # [unix]
+    - pcre2 10.42  # [unix]
     - perl 5.*  # [unix]
-    - zlib      # [unix]
+    - zlib 1.2.13  # [unix]
   run:
     - curl      # [unix]
     - libcurl   # [unix]
     - expat     # [unix]
     - gettext   # [unix]
     - libiconv  # [osx]
-    - openssl   # [unix]
+    - openssl 3.*  # [unix]
     - pcre2     # [unix]
     - perl 5.*  # [unix]
     - tk        # [unix]
@@ -69,9 +66,6 @@ test:
     - test -f $PREFIX/bin/gitk                              # [unix]
     - test -f $PREFIX/bin/git-credential-osxkeychain        # [osx]
     - if not exist %LIBRARY_PREFIX%\\bin\\git.exe exit 1    # [win]
-
-    # Verify interactive support.
-    - test -f $PREFIX/libexec/git-core/git-add--interactive  # [unix]
 
     # Run git commands.
     - git --version
@@ -92,8 +86,13 @@ test:
 
 about:
   home: https://git-scm.com/
+  description: |
+    Git is a distributed version control system that tracks changes in any set of computer files,
+    usually used for coordinating work among programmers collaboratively developing source code during software development.
   license: GPL-2.0-or-later and LGPL-2.1-or-later
   license_file: code/COPYING  # [not win]
+  license_url: https://raw.githubusercontent.com/git-for-windows/git/v2.40.1.windows.1/COPYING  # [win]
+  license_family: OTHER
   summary: distributed version control system
   dev_url: https://github.com/git/git
   doc_url: https://git-scm.com/docs
