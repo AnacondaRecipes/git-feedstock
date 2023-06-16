@@ -23,7 +23,7 @@ source:
 
 
 build:
-  number: 0
+  number: 1
   # git hardcodes paths to external utilities (e.g. curl)
   detect_binary_files_with_prefix: true
   missing_dso_whitelist:    # [win]
@@ -43,7 +43,7 @@ requirements:
     - libcurl 7.88.1  # [unix]
     - expat 2.4.9  # [unix]
     - libiconv 1.16  # [osx]
-    - openssl 3.0.8  # [unix]
+    - openssl {{ openssl }}  # [unix]
     - pcre2 10.42  # [unix]
     - perl 5.*  # [unix]
     - zlib 1.2.13  # [unix]
@@ -53,7 +53,8 @@ requirements:
     - expat     # [unix]
     - gettext   # [unix]
     - libiconv  # [osx]
-    - openssl 3.*  # [unix]
+    # exact pin handled through openssl run_exports
+    - openssl  # [unix]
     - pcre2     # [unix]
     - perl 5.*  # [unix]
     - tk        # [unix]
