@@ -1,7 +1,8 @@
+{% set name = "git" %}
 {% set version = "2.40.1" %}
 
 package:
-  name: git
+  name: {{ name }}
   version: {{ version }}
 
 source:
@@ -28,6 +29,8 @@ build:
   detect_binary_files_with_prefix: true
   missing_dso_whitelist:    # [win]
     - '*'                   # [win]
+  no_link:                         # [win]
+    - 'Menu/{{ name }}_menu.json'  # [win]
 
 requirements:
   build:
