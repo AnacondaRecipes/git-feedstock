@@ -1,7 +1,8 @@
+{% set name = "git" %}
 {% set version = "2.40.1" %}
 
 package:
-  name: git
+  name: {{ name }}
   version: {{ version }}
 
 source:
@@ -23,11 +24,15 @@ source:
 
 
 build:
-  number: 1
+  number: 2
   # git hardcodes paths to external utilities (e.g. curl)
   detect_binary_files_with_prefix: true
   missing_dso_whitelist:    # [win]
     - '*'                   # [win]
+  # The menu file is either v1 or v2.
+  # Avoid linking to not overwrite menu file in pkgs directory.
+  no_link:                         # [win]
+    - 'Menu/{{ name }}_menu.json'  # [win]
 
 requirements:
   build:
