@@ -8,15 +8,8 @@ del git_cmd.exe
 del README.portable
 del post-install.bat
 
-REM Prepare shortcuts. The menuinst v2 json files are not compatible
-REM with menuinst versions older than 2.1.0. The post-link script
-REM will handle which shortcut to use. One file needs to be the default
-REM menu file so that conda picks it up when running menuinst.
-REM This can be deprecated once supported installers have newer menuinst versions.
 IF NOT EXIST %PREFIX%\Menu mkdir %PREFIX%\Menu
-copy %RECIPE_DIR%\menu-v1.json %PREFIX%\Menu\%PKG_NAME%_menu-v1.json.bak
-copy %RECIPE_DIR%\menu-v2.json %PREFIX%\Menu\%PKG_NAME%_menu-v2.json.bak
-copy %RECIPE_DIR%\menu-v2.json %PREFIX%\Menu\%PKG_NAME%_menu.json
+copy %RECIPE_DIR%\menu-windows.json %PREFIX%\Menu\
 copy %RECIPE_DIR%\git-for-windows.ico %PREFIX%\Menu\
 
 echo export PATH=$(cygpath -a %PREFIX:\=/%)/Library/bin:$PATH >> %LIBRARY_PREFIX%\etc\profile.d\env.sh

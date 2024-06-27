@@ -1,8 +1,7 @@
-{% set name = "git" %}
 {% set version = "2.40.1" %}
 
 package:
-  name: {{ name }}
+  name: git
   version: {{ version }}
 
 source:
@@ -24,15 +23,15 @@ source:
 
 
 build:
-  number: 3
+  # This build number has not been published.
+  # It is used to reset the state of the repository
+  # after reverting menuinst2 integration.
+  # See PR 12
+  number: 4
   # git hardcodes paths to external utilities (e.g. curl)
   detect_binary_files_with_prefix: true
   missing_dso_whitelist:    # [win]
     - '*'                   # [win]
-  # The menu file is either v1 or v2.
-  # Avoid linking to not overwrite menu file in pkgs directory.
-  no_link:                         # [win]
-    - 'Menu/{{ name }}_menu.json'  # [win]
 
 requirements:
   build:
