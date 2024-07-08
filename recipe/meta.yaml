@@ -1,4 +1,4 @@
-{% set version = "2.40.1" %}
+{% set version = "2.40.3" %}
 
 package:
   name: git
@@ -7,15 +7,15 @@ package:
 source:
   - url: https://mirrors.edge.kernel.org/pub/software/scm/git/git-{{ version }}.tar.gz  # [not win]
     folder: code  # [not win]
-    sha256: 55511f10f3b1cdf5db4e0e3dea61819dfb67661b0507a5a2b061c70e4f87e14c  # [not win]
+    sha256: b3dc96b20edcdbe6bea7736ea55bb80babf683d126cc7f353ed4e3bc304cd7da  # [not win]
     patches:   # [not win]
       - 0001-macOS-Do-not-use-the-system-Wish-urgh.patch  # [not win]
   - url: https://mirrors.edge.kernel.org/pub/software/scm/git/git-manpages-{{ version }}.tar.gz  # [not win]
     folder: manpages  # [not win]
-    sha256: 6bbde434121bd0bf8aa574c60fd9a162388383679bd5ddd99921505149ffd4c2  # [not win]
+    sha256: fa9b837e1e161ebdbbbfde27a883a90fe5f603ce1618086a384bccda59c47de5  # [not win]
   - url: https://mirrors.edge.kernel.org/pub/software/scm/git/git-htmldocs-{{ version }}.tar.gz  # [not win]
     folder: htmldocs  # [not win]
-    sha256: 4fcce89aa84c79be6641fee54cf05c590c7d967734536770bf6299cae26c8a51  # [not win]
+    sha256: 8cda6fa1afdd40945396d3faebc133266fea232b276ae77fc5439ebf2b7f4958  # [not win]
 
   - url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.1/PortableGit-{{ version }}-64-bit.7z.exe  # [win64]
     folder: .  # [win64]
@@ -23,11 +23,7 @@ source:
 
 
 build:
-  # This build number has not been published.
-  # It is used to reset the state of the repository
-  # after reverting menuinst2 integration.
-  # See PR 12
-  number: 4
+  number: 0
   # git hardcodes paths to external utilities (e.g. curl)
   detect_binary_files_with_prefix: true
   missing_dso_whitelist:    # [win]
