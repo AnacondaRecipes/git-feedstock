@@ -39,13 +39,14 @@ requirements:
     - gettext   # [unix]
     - patch     # [unix]
   host:
-    - curl 7.88.1  # [unix]
+    - curl 7.88.1     # [unix]
     - libcurl 7.88.1  # [unix]
-    - expat 2.4.9  # [unix]
-    - libiconv 1.16  # [osx]
+    - expat 2.4.9     # [unix]
+    - libiconv 1.16   # [osx]
     - openssl {{ openssl }}  # [unix]
     - pcre2 10.42  # [unix]
-    - perl 5.*  # [unix]
+    - perl 5.*     # [unix]
+    - tk           # [unix]
     - zlib 1.2.13  # [unix]
   run:
     - curl      # [unix]
@@ -54,7 +55,7 @@ requirements:
     - gettext   # [unix]
     - libiconv  # [osx]
     # exact pin handled through openssl run_exports
-    - openssl  # [unix]
+    - openssl   # [unix]
     - pcre2     # [unix]
     - perl 5.*  # [unix]
     - tk        # [unix]
