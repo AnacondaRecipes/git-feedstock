@@ -1,7 +1,8 @@
 {% set version = "2.45.2" %}
+{% set name = "git" %}
 
 package:
-  name: git
+  name: {{ name }}
   version: {{ version }}
 
 source:
@@ -23,11 +24,13 @@ source:
 
 
 build:
-  number: 0
+  number: 1
   # git hardcodes paths to external utilities (e.g. curl)
   detect_binary_files_with_prefix: true
   missing_dso_whitelist:    # [win]
     - '*'                   # [win]
+  no_link:
+    - 'Menu/{{ name }}_menu.json'
 
 requirements:
   build:
