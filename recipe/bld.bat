@@ -8,8 +8,8 @@ del git_cmd.exe
 del README.portable
 del post-install.bat
 
-REM Prepare shortcuts. The menuinst v2 json files are not compatible
-REM with menuinst versions older than 2.1.1. The post-link script
+REM Prepare shortcuts. menuinst v2 shortcuts should only be used startings
+REM at menuinst v2.1.1 due to bugs. The post-link script
 REM will handle which shortcut to use. One file needs to be the default
 REM menu file so that conda picks it up when running menuinst.
 IF NOT EXIST %PREFIX%\Menu mkdir %PREFIX%\Menu
