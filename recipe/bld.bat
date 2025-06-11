@@ -1,7 +1,7 @@
 7za x PortableGit-%PKG_VERSION%-%ARCH%-bit.7z.exe -o"%LIBRARY_PREFIX%\" -aoa
 if errorlevel 1 exit 1
 
-cd %LIBRARY_PREFIX%
+cd "%LIBRARY_PREFIX%"
 call post-install.bat
 del git_bash.exe
 del git_cmd.exe
@@ -15,16 +15,16 @@ REM menu file so that conda picks it up when running menuinst.
 SET "MENU_DIR=%PREFIX%\Menu"
 IF NOT EXIST "%MENU_DIR%" MKDIR "%MENU_DIR%"
 if errorlevel 1 exit 1
-copy "%RECIPE_DIR%\menu-v1.json" "%PREFIX%\Menu\%PKG_NAME%_menu-v1.json.bak"
+copy "%RECIPE_DIR%\menu-v1.json" "%MENU_DIR%\%PKG_NAME%_menu-v1.json.bak"
 if errorlevel 1 exit 1
-copy "%RECIPE_DIR%\menu-v2.json" "%PREFIX%\Menu\%PKG_NAME%_menu-v2.json.bak"
+copy "%RECIPE_DIR%\menu-v2.json" "%MENU_DIR%\%PKG_NAME%_menu-v2.json.bak"
 if errorlevel 1 exit 1
-copy "%RECIPE_DIR%\menu-v2.json" "%PREFIX%\Menu\%PKG_NAME%_menu.json"
+copy "%RECIPE_DIR%\menu-v2.json" "%MENU_DIR%\%PKG_NAME%_menu.json"
 if errorlevel 1 exit 1
 copy "%RECIPE_DIR%\git-for-windows.ico" "%PREFIX%\Menu\"
 if errorlevel 1 exit 1
 
 echo export PATH=$(cygpath -a %PREFIX:\=/%)/Library/bin:$PATH >> %LIBRARY_PREFIX%\etc\profile.d\env.sh
-echo. >> %LIBRARY_PREFIX%\etc\profile.d\env.sh
+echo. >> "%LIBRARY_PREFIX%\etc\profile.d\env.sh"
 
 exit 0
