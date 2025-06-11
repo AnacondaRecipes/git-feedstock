@@ -3,9 +3,9 @@ SETLOCAL ENABLEDELAYEDEXPANSION
 REM The menuinst v2 json file is not compatible with menuinst versions
 REM older than 2.1.1. Copy the appropriate file as the menu file.
 
-SET LOGFILE=%PREFIX%\.messages.txt
-SET MENU_DIR=%PREFIX%\Menu
-SET MENU_PATH=%MENU_DIR%\%PKG_NAME%_menu.json
+SET "LOGFILE=%PREFIX%\.messages.txt"
+SET "MENU_DIR=%PREFIX%\Menu"
+SET "MENU_PATH=%MENU_DIR%\%PKG_NAME%_menu.json"
 
 REM Determine menuinst version.
 REM menuinst in the base environment is used to create the shortcuts,
@@ -42,7 +42,7 @@ IF %ERRORLEVEL% == 0 (
 GOTO :exit
 
 :patch
-    SET TMPMENU=%MENU_DIR%\%PKG_NAME%_menu_tmp.json
+    SET "TMPMENU=%MENU_DIR%\%PKG_NAME%_menu_tmp.json"
     SET FINDREPLACE=%~1
     FOR /f "delims=" %%i IN ('type "%MENU_PATH%"') DO (
         SET s=%%i
