@@ -1,4 +1,4 @@
-{% set version = "2.45.2" %}
+{% set version = "2.51.0" %}
 {% set name = "git" %}
 
 package:
@@ -8,59 +8,61 @@ package:
 source:
   - url: https://mirrors.edge.kernel.org/pub/software/scm/git/git-{{ version }}.tar.gz  # [not win]
     folder: code  # [not win]
-    sha256: 98b26090ed667099a3691b93698d1e213e1ded73d36a2fde7e9125fce28ba234  # [not win]
+    sha256: 3d531799d2cf2cac8e294ec6e3229e07bfca60dc6c783fe69e7712738bef7283  # [not win]
     patches:   # [not win]
       - 0001-macOS-Do-not-use-the-system-Wish-urgh.patch  # [not win]
   - url: https://mirrors.edge.kernel.org/pub/software/scm/git/git-manpages-{{ version }}.tar.gz  # [not win]
     folder: manpages  # [not win]
-    sha256: 48c1e2e3ecbb2ce9faa020a19fcdbc6ce64ea25692111b5930686bc0bb4f0e7f  # [not win]
+    sha256: c0e5d07f0051454df2cbdfac78e22e961e15ed5b09f10c6e58e315ca303492c2  # [not win]
   - url: https://mirrors.edge.kernel.org/pub/software/scm/git/git-htmldocs-{{ version }}.tar.gz  # [not win]
     folder: htmldocs  # [not win]
-    sha256: 5fe5c94364637f08928d081d377e15bbd0e74d56bdec794c2e9ed3a9fdedc8a9  # [not win]
+    sha256: b79d129def4a3cbcdb3ad8560ab71251f24fec8f27691d319f1e48095cc12fa2  # [not win]
 
   - url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.1/PortableGit-{{ version }}-64-bit.7z.exe  # [win64]
     folder: .  # [win64]
-    sha256: 851a15074dea6b272785b2a2a4697a72970256de2afe7b8e4a9c5e168c27ccdd  # [win64]
+    sha256: a09b275d51ed3e829128e04cf4168fb54896cf6234bb30fecb8dc96a2bd321fa  # [win64]
+  # Use this dummy source to tell our Windows signing process which binaries to skip. This is not actually used in the build.
+  - url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.1/Git-{{ version }}-64-bit.tar.bz2  # [win64]
+    folder: git-64-bit  # [win64]
+    sha256: 151bddf70e1115631e62bb05535b5e6726b3813e1f363953ad6b4e6697d96933  # [win64]
 
 
 build:
-  number: 2
+  number: 0
   # git hardcodes paths to external utilities (e.g. curl)
   detect_binary_files_with_prefix: true
-  missing_dso_whitelist:    # [win]
-    - '*'                   # [win]
+  missing_dso_whitelist: # [win]
+    - '*'                # [win]
   no_link:
     - 'Menu/{{ name }}_menu.json'
 
 requirements:
   build:
+    - {{ stdlib('c') }}    # [unix]
     - {{ compiler('c') }}  # [unix]
-    - autoconf  # [unix]
-    - make      # [unix]
-    - 7za       # [win]
-    - tk        # [unix]
-    - gettext   # [unix]
-    - patch     # [unix]
+    - autoconf             # [unix]
+    - make                 # [unix]
+    - 7zip                 # [win]
   host:
-    - curl 7.88.1     # [unix]
-    - libcurl 7.88.1  # [unix]
-    - expat 2.4.9     # [unix]
-    - libiconv 1.16   # [osx]
-    - openssl {{ openssl }}  # [unix]
-    - pcre2 10.42  # [unix]
-    - perl 5.*     # [unix]
-    - tk           # [unix]
-    - zlib 1.2.13  # [unix]
+    # https://github.com/git/git/blob/v2.51.0/INSTALL#L110
+    - gettext {{ gettext }}    # [unix]
+    - libcurl {{ libcurl }}    # [unix]
+    - expat {{ expat }}        # [unix]
+    - libiconv {{ libiconv }}  # [unix]
+    - openssl {{ openssl }}    # [unix]
+    - pcre2 {{ pcre2 }}        # [unix]
+    - perl {{ perl }}          # [unix]
+    - tk {{ tk }}              # [unix]
+    - zlib {{ zlib }}          # [unix]
   run:
-    - curl      # [unix]
+    - perl {{ perl.split(".")[0] }}.*  # [unix]
+    # exact pin handled through run_exports
+    - gettext   # [unix]
     - libcurl   # [unix]
     - expat     # [unix]
-    - gettext   # [unix]
-    - libiconv  # [osx]
-    # exact pin handled through openssl run_exports
+    - libiconv  # [unix]
     - openssl   # [unix]
     - pcre2     # [unix]
-    - perl 5.*  # [unix]
     - tk        # [unix]
     - zlib      # [unix]
 
