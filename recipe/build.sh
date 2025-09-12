@@ -65,6 +65,7 @@ mkdir -p $PREFIX/man
 cp -r manpages/* $PREFIX/man
 # Add symlinks in $PREFIX/share/man so that manpages work on macOS
 if [[ $(uname) == "Darwin" ]]; then
+  mkdir -p $PREFIX/share/man/man{1,5,7}
   ln -s $PREFIX/man/man1/git* $PREFIX/share/man/man1/
   ln -s $PREFIX/man/man5/git* $PREFIX/share/man/man5/
   ln -s $PREFIX/man/man7/git* $PREFIX/share/man/man7/

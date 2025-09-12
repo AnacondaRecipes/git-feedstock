@@ -23,8 +23,8 @@
                     "app_user_model_id": "anaconda.GitBash.{{ DISTRIBUTION_NAME }}.{{ ENV_NAME }}",
                     "working_dir": "{{ HOME }}"
                 },
-                "linux": null,
-                "osx": null
+                "linux": {},
+                "osx": {}
             }
         }
     ]
