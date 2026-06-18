@@ -1,10 +1,10 @@
 REM Handle different archive naming between x64 (64-bit) and arm64
-REM For arm64, we use the self-extracting capability because the archive uses
+REM We use the self-extracting capability because the archive uses
 REM compression methods (BCJ2 for ARM64) that 7za may not support.
 IF "%ARCH%"=="arm64" (
     PortableGit-%PKG_VERSION%-arm64.7z.exe -o"%LIBRARY_PREFIX%\" -y
 ) ELSE (
-    7za x PortableGit-%PKG_VERSION%-%ARCH%-bit.7z.exe -o"%LIBRARY_PREFIX%\" -aoa
+    PortableGit-%PKG_VERSION%-%ARCH%-bit.7z.exe -o"%LIBRARY_PREFIX%\" -y
 )
 if errorlevel 1 exit 1
 

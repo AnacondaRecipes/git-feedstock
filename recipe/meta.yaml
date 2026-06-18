@@ -50,7 +50,6 @@ requirements:
     - {{ compiler('c') }}  # [unix]
     - autoconf             # [unix]
     - make                 # [unix]
-    - 7zip                 # [win64]
   host:
     # https://github.com/git/git/blob/v2.51.0/INSTALL#L110
     - gettext {{ gettext }}    # [unix]
