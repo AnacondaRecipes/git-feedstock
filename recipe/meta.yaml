@@ -26,9 +26,17 @@ source:
     folder: git-64-bit  # [win64]
     sha256: 151bddf70e1115631e62bb05535b5e6726b3813e1f363953ad6b4e6697d96933  # [win64]
 
+  - url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.1/PortableGit-{{ version }}-arm64.7z.exe  # [win and arm64]
+    folder: .  # [win and arm64]
+    sha256: 0aacd4edf0c1715334a18725a947584652e1b34bddab63ac3f4a82c9f7c78e38  # [win and arm64]
+  # Use this dummy source to tell our Windows signing process which binaries to skip. This is not actually used in the build.
+  - url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.1/Git-{{ version }}-arm64.tar.bz2  # [win and arm64]
+    folder: git-arm64  # [win and arm64]
+    sha256: 5c3bc6ca50ef6a7686832d2549e6e1b3b1060cf18322a2bbe064d4aec2f33904  # [win and arm64]
+
 
 build:
-  number: 1
+  number: 2
   # git hardcodes paths to external utilities (e.g. curl)
   detect_binary_files_with_prefix: true
   missing_dso_whitelist: # [win]
@@ -42,7 +50,6 @@ requirements:
     - {{ compiler('c') }}  # [unix]
     - autoconf             # [unix]
     - make                 # [unix]
-    - 7zip                 # [win]
   host:
     # https://github.com/git/git/blob/v2.51.0/INSTALL#L110
     - gettext {{ gettext }}    # [unix]
