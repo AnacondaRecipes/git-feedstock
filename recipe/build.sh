@@ -30,13 +30,14 @@ make configure
 make \
     --jobs="$CPU_COUNT" \
     NO_INSTALL_HARDLINKS=1 \
+    NO_RUST=1 \
     STRIP=$STRIP \
     all strip install
 
 # build osxkeychain
 if [[ "$target_platform" == osx-* ]]; then
   pushd contrib/credential/osxkeychain
-  make -e
+  make -e NO_RUST=1
   cp -avf git-credential-osxkeychain $PREFIX/bin
   popd
 fi
