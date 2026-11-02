@@ -25,7 +25,7 @@ source:
   # Use this dummy source to tell our Windows signing process which binaries to skip. This is not actually used in the build.
   - url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.{{ win_version }}/Git-{{ version }}.{{ win_version }}-64-bit.tar.bz2  # [win64]
     folder: git-64-bit  # [win64]
-    sha256: e7dcc4adbb0eb373064598cd18bc75e60128707d816ead51cd9bd98e356f0075  # [win64]
+    sha256: 0dae059764ba7c447c9604eb6cb0f4afaf2d90b003ecf1c8cf2dbe5a13e4442c  # [win64]
 
   - url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.{{ win_version }}/PortableGit-{{ version }}.{{ win_version }}-arm64.7z.exe  # [win and arm64]
     folder: .  # [win and arm64]
@@ -33,7 +33,7 @@ source:
   # Use this dummy source to tell our Windows signing process which binaries to skip. This is not actually used in the build.
   - url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.{{ win_version }}/Git-{{ version }}.{{ win_version }}-arm64.tar.bz2  # [win and arm64]
     folder: git-arm64  # [win and arm64]
-    sha256: e7dcc4adbb0eb373064598cd18bc75e60128707d816ead51cd9bd98e356f0075  # [win and arm64]
+    sha256: e3903db2fea42263b4df0d2f581ca8e07ec1c7c9f878156a8d01284f35011642  # [win and arm64]
 
 
 build:
