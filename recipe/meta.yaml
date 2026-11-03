@@ -1,4 +1,6 @@
-{% set version = "2.55.0" %}
+{% set version = "2.56.0" %}
+# windows versions may have a 4th version number
+{% set win_version = "4" %}
 {% set name = "git" %}
 
 package:
@@ -8,41 +10,43 @@ package:
 source:
   - url: https://mirrors.edge.kernel.org/pub/software/scm/git/git-{{ version }}.tar.gz  # [not win]
     folder: code  # [not win]
-    sha256: 0842dc384a23ac33ba3e570c4f3a8ded85963ee4713b1cd21153c3db41813d1e  # [not win]
+    sha256: 826817fd3671b8565586d6d49f688298de8354ab11db829c02720e5c74b9b39f  # [not win]
     patches:   # [not win]
       - 0001-macOS-Do-not-use-the-system-Wish-urgh.patch  # [not win]
   - url: https://mirrors.edge.kernel.org/pub/software/scm/git/git-manpages-{{ version }}.tar.gz  # [not win]
     folder: manpages  # [not win]
-    sha256: e1d56c160c55be805d339613d6c5cdb1269d5346a50d757c39135f1449e28ed5  # [not win]
+    sha256: be5ced6a6333baa36ecd4c1575bcf66aee9b04444b918115ff87bf65cd6d61b4  # [not win]
   - url: https://mirrors.edge.kernel.org/pub/software/scm/git/git-htmldocs-{{ version }}.tar.gz  # [not win]
     folder: htmldocs  # [not win]
-    sha256: 8cc302f07f4d246b556c4f4f57cdc0aa7f13a57f9b5c94629ff8ec26cddf66b5  # [not win]
+    sha256: 62b477a75a997fa16532c4d44e26a6a47a512ad7086116d912bb2ab16c785bc3  # [not win]
 
-  - url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.1/PortableGit-{{ version }}-64-bit.7z.exe  # [win64]
+  - url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.{{ win_version }}/PortableGit-{{ version }}.{{ win_version }}-64-bit.7z.exe  # [win64]
     folder: .  # [win64]
-    sha256: dfa8cad3ce7e685b9bfbbb2125afcf7c68d4f53490426702ffac367dac62e928  # [win64]
+    sha256: b1f3e52216e2ed6882d1bebfd4d3fdf319bec40d2edbbf9fd26ec4fd3fce7ed1  # [win64]
   # Use this dummy source to tell our Windows signing process which binaries to skip. This is not actually used in the build.
-  - url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.1/Git-{{ version }}-64-bit.tar.bz2  # [win64]
+  - url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.{{ win_version }}/Git-{{ version }}.{{ win_version }}-64-bit.tar.bz2  # [win64]
     folder: git-64-bit  # [win64]
-    sha256: 25bc3235291249f39bd463cd9fb86d9b4295b19d53d81af0238414bc68e16110  # [win64]
+    sha256: 0dae059764ba7c447c9604eb6cb0f4afaf2d90b003ecf1c8cf2dbe5a13e4442c  # [win64]
 
-  - url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.1/PortableGit-{{ version }}-arm64.7z.exe  # [win and arm64]
+  - url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.{{ win_version }}/PortableGit-{{ version }}.{{ win_version }}-arm64.7z.exe  # [win and arm64]
     folder: .  # [win and arm64]
-    sha256: b1fe421482c6e5a1aa1135406d7eeb89adf5436b3e5af183cdcd6ffe3c6bc8f2  # [win and arm64]
+    sha256: 044110f9d951858452ddb5e4b5415ea0f2b5b2598e794d6fec77fe28b9aa8cc0  # [win and arm64]
   # Use this dummy source to tell our Windows signing process which binaries to skip. This is not actually used in the build.
-  - url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.1/Git-{{ version }}-arm64.tar.bz2  # [win and arm64]
+  - url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.{{ win_version }}/Git-{{ version }}.{{ win_version }}-arm64.tar.bz2  # [win and arm64]
     folder: git-arm64  # [win and arm64]
-    sha256: 440998321e239588588ce5c8df1a45ffe99551691ac47d148dbbdae76776b582  # [win and arm64]
+    sha256: e3903db2fea42263b4df0d2f581ca8e07ec1c7c9f878156a8d01284f35011642  # [win and arm64]
 
 
 build:
-  number: 1
+  number: 0
   # git hardcodes paths to external utilities (e.g. curl)
   detect_binary_files_with_prefix: true
   missing_dso_whitelist: # [win]
     - '*'                # [win]
   no_link:
     - 'Menu/{{ name }}_menu.json'
+  script_env:                       # [win]
+    - WIN_VERSION_SUFFIX=.{{ win_version }} # [win]
 
 requirements:
   build:
@@ -51,7 +55,7 @@ requirements:
     - autoconf             # [unix]
     - make                 # [unix]
   host:
-    # https://github.com/git/git/blob/v2.55.0/INSTALL#L110
+    # https://github.com/git/git/blob/v2.56.0/INSTALL
     - gettext {{ gettext }}    # [unix]
     - libcurl {{ libcurl }}    # [unix]
     - expat {{ expat }}        # [unix]
@@ -83,7 +87,7 @@ test:
 
     # Run git commands.
     - git --version
-    - git clone https://github.com/conda-forge/git-feedstock
+    - git clone https://github.com/conda-forge/git-feedstock --depth 1
 
     # Git credential commands
     - git-credential-osxkeychain 2>&1 | grep -q usage  # [osx]
@@ -103,9 +107,19 @@ about:
   description: |
     Git is a distributed version control system that tracks changes in any set of computer files,
     usually used for coordinating work among programmers collaboratively developing source code during software development.
-  license: GPL-2.0-or-later and LGPL-2.1-or-later
-  license_file: COPYING
-  license_family: OTHER
+  # unix (built from source): git is GPL v2 exactly, vendored subtree (contrib/subtree)
+  # is GPL v2 or later, other vendored software (xdiff, compat/regex, obstack) is LGPL-2.1 or later.
+  # win (PortableGit repack): git plus bundled MSYS2/MinGW components; see THIRD-PARTY-LICENSES.txt,
+  # generated by recipe/collect-licenses.bat.
+  license: GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.1-or-later  # [not win]
+  license: GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later AND GPL-3.0-or-later WITH GCC-exception-3.1 AND MIT AND BSD-2-Clause AND BSD-3-Clause AND Apache-2.0 AND MPL-2.0 AND Zlib AND curl AND ISC AND Vim AND TCL AND Artistic-1.0-Perl  # [win]
+  license_file:
+    - COPYING
+    - code/LGPL-2.1                 # [not win]
+    - code/contrib/subtree/COPYING  # [not win]
+    - THIRD-PARTY-LICENSES.txt      # [win]
+  license_family: GPL     # [not win]
+  license_family: OTHER   # [win]
   summary: distributed version control system
   dev_url: https://github.com/git/git
   doc_url: https://git-scm.com/docs

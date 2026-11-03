@@ -2,9 +2,9 @@ REM Handle different archive naming between x64 (64-bit) and arm64
 REM We use the self-extracting capability because the archive uses
 REM compression methods (BCJ2 for ARM64) that 7za may not support.
 IF "%ARCH%"=="arm64" (
-    PortableGit-%PKG_VERSION%-arm64.7z.exe -o"%LIBRARY_PREFIX%\" -y
+    PortableGit-%PKG_VERSION%%WIN_VERSION_SUFFIX%-arm64.7z.exe -o"%LIBRARY_PREFIX%\" -y
 ) ELSE (
-    PortableGit-%PKG_VERSION%-%ARCH%-bit.7z.exe -o"%LIBRARY_PREFIX%\" -y
+    PortableGit-%PKG_VERSION%%WIN_VERSION_SUFFIX%-%ARCH%-bit.7z.exe -o"%LIBRARY_PREFIX%\" -y
 )
 if errorlevel 1 exit 1
 
@@ -14,6 +14,11 @@ del git_bash.exe
 del git_cmd.exe
 del README.portable
 del post-install.bat
+
+REM Consolidate the licenses of the bundled MSYS2/MinGW components. The result
+REM is shipped through about/license_file (THIRD-PARTY-LICENSES.txt).
+call "%RECIPE_DIR%\collect-licenses.bat" "%LIBRARY_PREFIX%" "%SRC_DIR%\THIRD-PARTY-LICENSES.txt"
+if errorlevel 1 exit 1
 
 REM Prepare shortcuts. menuinst v2 shortcuts should only be used starting
 REM at menuinst v2.1.1 due to bugs. The post-link script
