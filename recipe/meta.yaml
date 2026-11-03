@@ -1,4 +1,5 @@
 {% set version = "2.56.0" %}
+# windows versions may have a 4th version number
 {% set win_version = "4" %}
 {% set name = "git" %}
 
@@ -45,7 +46,7 @@ build:
   no_link:
     - 'Menu/{{ name }}_menu.json'
   script_env:                       # [win]
-    - WIN_VERSION={{ win_version }} # [win]
+    - WIN_VERSION_SUFFIX=.{{ win_version }} # [win]
 
 requirements:
   build:
@@ -54,7 +55,7 @@ requirements:
     - autoconf             # [unix]
     - make                 # [unix]
   host:
-    # https://github.com/git/git/blob/v2.56.0/INSTALL#L110
+    # https://github.com/git/git/blob/v2.56.0/INSTALL
     - gettext {{ gettext }}    # [unix]
     - libcurl {{ libcurl }}    # [unix]
     - expat {{ expat }}        # [unix]
@@ -86,7 +87,7 @@ test:
 
     # Run git commands.
     - git --version
-    - git clone https://github.com/conda-forge/git-feedstock
+    - git clone https://github.com/conda-forge/git-feedstock --depth 1
 
     # Git credential commands
     - git-credential-osxkeychain 2>&1 | grep -q usage  # [osx]
@@ -106,9 +107,14 @@ about:
   description: |
     Git is a distributed version control system that tracks changes in any set of computer files,
     usually used for coordinating work among programmers collaboratively developing source code during software development.
-  license: GPL-2.0-or-later and LGPL-2.1-or-later
-  license_file: COPYING
-  license_family: OTHER
+  # git is GPL v2 exactly, vendored subtree (contrib/subtree) is GPL v2 or later,
+  # other vendored software is LGPL-2.1 or later
+  license: GPL-2.0-only and GPL-2.0-or-later and LGPL-2.1-or-later
+  license_file:
+    - COPYING
+    - LGPL-2.1
+    - contrib/subtree/COPYING
+  license_family: GPL
   summary: distributed version control system
   dev_url: https://github.com/git/git
   doc_url: https://git-scm.com/docs
