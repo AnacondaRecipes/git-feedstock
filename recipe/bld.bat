@@ -15,6 +15,11 @@ del git_cmd.exe
 del README.portable
 del post-install.bat
 
+REM Consolidate the licenses of the bundled MSYS2/MinGW components. The result
+REM is shipped through about/license_file (THIRD-PARTY-LICENSES.txt).
+call "%RECIPE_DIR%\collect-licenses.bat" "%LIBRARY_PREFIX%" "%SRC_DIR%\THIRD-PARTY-LICENSES.txt"
+if errorlevel 1 exit 1
+
 REM Prepare shortcuts. menuinst v2 shortcuts should only be used starting
 REM at menuinst v2.1.1 due to bugs. The post-link script
 REM will handle which shortcut to use. One file needs to be the default
