@@ -52,10 +52,11 @@ build:
 
 requirements:
   build:
-    - {{ stdlib('c') }}    # [unix]
-    - {{ compiler('c') }}  # [unix]
-    - autoconf             # [unix]
-    - make                 # [unix]
+    - {{ stdlib('c') }}        # [unix]
+    - {{ compiler('c') }}      # [unix]
+    - {{ compiler('rust') }}   # [unix]
+    - autoconf                 # [unix]
+    - make                     # [unix]
   host:
     # https://github.com/git/git/blob/v2.56.1/INSTALL
     - gettext {{ gettext }}    # [unix]
@@ -90,6 +91,9 @@ test:
     # Run git commands.
     - git --version
     - git clone https://github.com/conda-forge/git-feedstock --depth 1
+
+    # verify rust was enabled
+    - 'git version --build-options | grep -q "rust: enabled"'  # [unix]
 
     # Git credential commands
     - git-credential-osxkeychain 2>&1 | grep -q usage  # [osx]
