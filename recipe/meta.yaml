@@ -1,6 +1,8 @@
-{% set version = "2.56.0" %}
-# windows versions may have a 4th version number
-{% set win_version = "4" %}
+{% set version = "2.56.1" %}
+# Git for Windows tags releases v<version>.windows.<win_build>. Its file names
+# only carry the 4th number when win_build > 1 (e.g. 2.56.0.4, but 2.56.1).
+{% set win_build = "1" %}
+{% set win_version = version if win_build == "1" else version ~ "." ~ win_build %}
 {% set name = "git" %}
 
 package:
@@ -10,31 +12,31 @@ package:
 source:
   - url: https://mirrors.edge.kernel.org/pub/software/scm/git/git-{{ version }}.tar.gz  # [not win]
     folder: code  # [not win]
-    sha256: 826817fd3671b8565586d6d49f688298de8354ab11db829c02720e5c74b9b39f  # [not win]
+    sha256: fd0c0495427dc9ac445fdced8e36bb5eb6f233a14da5db3c6dfd8dcfa7f85761  # [not win]
     patches:   # [not win]
       - 0001-macOS-Do-not-use-the-system-Wish-urgh.patch  # [not win]
   - url: https://mirrors.edge.kernel.org/pub/software/scm/git/git-manpages-{{ version }}.tar.gz  # [not win]
     folder: manpages  # [not win]
-    sha256: be5ced6a6333baa36ecd4c1575bcf66aee9b04444b918115ff87bf65cd6d61b4  # [not win]
+    sha256: 5cdf9bf4c83f4679f52d83f9bf19aa71918927acc3e3a9c02fe5ee271b2d62e4  # [not win]
   - url: https://mirrors.edge.kernel.org/pub/software/scm/git/git-htmldocs-{{ version }}.tar.gz  # [not win]
     folder: htmldocs  # [not win]
-    sha256: 62b477a75a997fa16532c4d44e26a6a47a512ad7086116d912bb2ab16c785bc3  # [not win]
+    sha256: 49d0b031395e1d8823c30881d565841aed2289a9cb0e03aba9571bb1fc90d9ae  # [not win]
 
-  - url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.{{ win_version }}/PortableGit-{{ version }}.{{ win_version }}-64-bit.7z.exe  # [win64]
+  - url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.{{ win_build }}/PortableGit-{{ win_version }}-64-bit.7z.exe  # [win64]
     folder: .  # [win64]
-    sha256: b1f3e52216e2ed6882d1bebfd4d3fdf319bec40d2edbbf9fd26ec4fd3fce7ed1  # [win64]
+    sha256: 9dd04a608ceb5f6ab32a73709e0ecb159d211da71b697c45ff81f6dd0c6b49c7  # [win64]
   # Use this dummy source to tell our Windows signing process which binaries to skip. This is not actually used in the build.
-  - url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.{{ win_version }}/Git-{{ version }}.{{ win_version }}-64-bit.tar.bz2  # [win64]
+  - url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.{{ win_build }}/Git-{{ win_version }}-64-bit.tar.bz2  # [win64]
     folder: git-64-bit  # [win64]
-    sha256: 0dae059764ba7c447c9604eb6cb0f4afaf2d90b003ecf1c8cf2dbe5a13e4442c  # [win64]
+    sha256: d7d89e69855f00e73d957b513c49538a420c465c84b9d212cf1add400eecdf54  # [win64]
 
-  - url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.{{ win_version }}/PortableGit-{{ version }}.{{ win_version }}-arm64.7z.exe  # [win and arm64]
+  - url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.{{ win_build }}/PortableGit-{{ win_version }}-arm64.7z.exe  # [win and arm64]
     folder: .  # [win and arm64]
-    sha256: 044110f9d951858452ddb5e4b5415ea0f2b5b2598e794d6fec77fe28b9aa8cc0  # [win and arm64]
+    sha256: 0dca0d9f760924a7e6752235d7dd6eb1a9b508ee714b6ed15d89252e5a58c5c9  # [win and arm64]
   # Use this dummy source to tell our Windows signing process which binaries to skip. This is not actually used in the build.
-  - url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.{{ win_version }}/Git-{{ version }}.{{ win_version }}-arm64.tar.bz2  # [win and arm64]
+  - url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.{{ win_build }}/Git-{{ win_version }}-arm64.tar.bz2  # [win and arm64]
     folder: git-arm64  # [win and arm64]
-    sha256: e3903db2fea42263b4df0d2f581ca8e07ec1c7c9f878156a8d01284f35011642  # [win and arm64]
+    sha256: 4a5e1555ac8453033d504930857ec8ba4eef20275d784b4e71df84a3da071afb  # [win and arm64]
 
 
 build:
@@ -46,7 +48,7 @@ build:
   no_link:
     - 'Menu/{{ name }}_menu.json'
   script_env:                       # [win]
-    - WIN_VERSION_SUFFIX=.{{ win_version }} # [win]
+    - WIN_FILE_VERSION={{ win_version }} # [win]
 
 requirements:
   build:
@@ -55,7 +57,7 @@ requirements:
     - autoconf             # [unix]
     - make                 # [unix]
   host:
-    # https://github.com/git/git/blob/v2.56.0/INSTALL
+    # https://github.com/git/git/blob/v2.56.1/INSTALL
     - gettext {{ gettext }}    # [unix]
     - libcurl {{ libcurl }}    # [unix]
     - expat {{ expat }}        # [unix]
