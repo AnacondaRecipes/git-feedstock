@@ -1,8 +1,9 @@
 {% set version = "2.56.1" %}
 # Git for Windows tags releases v<version>.windows.<win_build>. Its file names
-# only carry the 4th number when win_build > 1 (e.g. 2.56.0.4, but 2.56.1).
+# only carry the 4th number when win_build > 1: set win_suffix to "" for
+# win_build 1, else ".<win_build>" (e.g. 2.56.0.4 -> win_build "4", suffix ".4").
 {% set win_build = "1" %}
-{% set win_version = version if win_build == "1" else version ~ "." ~ win_build %}
+{% set win_suffix = "" %}
 {% set name = "git" %}
 
 package:
@@ -22,19 +23,19 @@ source:
     folder: htmldocs  # [not win]
     sha256: 49d0b031395e1d8823c30881d565841aed2289a9cb0e03aba9571bb1fc90d9ae  # [not win]
 
-  - url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.{{ win_build }}/PortableGit-{{ win_version }}-64-bit.7z.exe  # [win64]
+  - url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.{{ win_build }}/PortableGit-{{ version }}{{ win_suffix }}-64-bit.7z.exe  # [win64]
     folder: .  # [win64]
     sha256: 9dd04a608ceb5f6ab32a73709e0ecb159d211da71b697c45ff81f6dd0c6b49c7  # [win64]
   # Use this dummy source to tell our Windows signing process which binaries to skip. This is not actually used in the build.
-  - url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.{{ win_build }}/Git-{{ win_version }}-64-bit.tar.bz2  # [win64]
+  - url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.{{ win_build }}/Git-{{ version }}{{ win_suffix }}-64-bit.tar.bz2  # [win64]
     folder: git-64-bit  # [win64]
     sha256: d7d89e69855f00e73d957b513c49538a420c465c84b9d212cf1add400eecdf54  # [win64]
 
-  - url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.{{ win_build }}/PortableGit-{{ win_version }}-arm64.7z.exe  # [win and arm64]
+  - url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.{{ win_build }}/PortableGit-{{ version }}{{ win_suffix }}-arm64.7z.exe  # [win and arm64]
     folder: .  # [win and arm64]
     sha256: 0dca0d9f760924a7e6752235d7dd6eb1a9b508ee714b6ed15d89252e5a58c5c9  # [win and arm64]
   # Use this dummy source to tell our Windows signing process which binaries to skip. This is not actually used in the build.
-  - url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.{{ win_build }}/Git-{{ win_version }}-arm64.tar.bz2  # [win and arm64]
+  - url: https://github.com/git-for-windows/git/releases/download/v{{ version }}.windows.{{ win_build }}/Git-{{ version }}{{ win_suffix }}-arm64.tar.bz2  # [win and arm64]
     folder: git-arm64  # [win and arm64]
     sha256: 4a5e1555ac8453033d504930857ec8ba4eef20275d784b4e71df84a3da071afb  # [win and arm64]
 
@@ -48,7 +49,7 @@ build:
   no_link:
     - 'Menu/{{ name }}_menu.json'
   script_env:                       # [win]
-    - WIN_FILE_VERSION={{ win_version }} # [win]
+    - WIN_FILE_VERSION={{ version }}{{ win_suffix }} # [win]
 
 requirements:
   build:
